@@ -19,7 +19,7 @@ setup(
     package_dir={"": "src"},
     # py_modules=modules,
     include_package_data=True,
-    install_requires=[],
+    install_requires=["numpy", "pandas", "xarray"],
     include_dirs=[np.get_include()],
     zip_safe=False,
 )
