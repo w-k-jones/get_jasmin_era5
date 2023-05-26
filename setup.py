@@ -8,9 +8,9 @@ packages = find_packages(str(src))
 modules = sorted([str(f.relative_to(f.parts[0])) for f in src.glob("**/[:alpha:]*.py")])
 
 setup(
-    name="tobac-flow",
-    version="1.7.5",
-    description="Detection and tracking of deep convective clouds in high time resolution geostationary satellite imagery",
+    name="get_jasmin_era5",
+    version="0.1.0",
+    description="A small python package to find and load ECMWF ERA5 data from the BADC archive on jasmin",
     url="",
     author="William Jones",
     author_email="william.jones@physics.ox.ac.uk",
