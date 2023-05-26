@@ -17,8 +17,26 @@ Import and initialise era5 object:
 from get_jasmin_era5 import Find_era5
 era5 = Find_era5()
 ```
+Load temperature (t) for one time step:
 
-Load temperature (t) for 2020/6/1:
+`era5["t", "2020-06-01-12:00:00"]`
+
+```
+<xarray.Dataset>
+Dimensions:    (longitude: 1440, latitude: 721, level: 137, time: 1)
+Coordinates:
+  * longitude  (longitude) float32 0.0 0.25 0.5 0.75 ... 359.0 359.2 359.5 359.8
+  * latitude   (latitude) float32 90.0 89.75 89.5 89.25 ... -89.5 -89.75 -90.0
+  * level      (level) int32 1 2 3 4 5 6 7 8 ... 130 131 132 133 134 135 136 137
+  * time       (time) datetime64[ns] 2020-06-01T12:00:00
+Data variables:
+    t          (time, level, latitude, longitude) float32 dask.array<chunksize=(1, 137, 721, 1440), meta=np.ndarray>
+Attributes:
+    Conventions:  CF-1.6
+    history:      2020-12-18 00:24:54 GMT by grib_to_netcdf-2.19.1: grib_to_n...
+```
+
+Load temperature (t) for all time steps on 2020/6/1:
 
 `era5["t", "2020-06-01":"2020-06-02"]`
 
