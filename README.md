@@ -1,9 +1,15 @@
 # get_jasmin_era5
 A small python package to find and load ECMWF ERA5 data from the BADC archive on jasmin
 
-**Requirements**: `numpy`, `pandas` and `xarray`
+**Requirements:** `numpy`, `pandas` and `xarray`
 
-**Example usage**:
+**Installation:**
+```
+git clone https://github.com/w-k-jones/get_jasmin_era5.git
+pip install get_jasmin_era5/
+```
+
+**Example usage:**
 
 Import and initialise era5 object:
 
