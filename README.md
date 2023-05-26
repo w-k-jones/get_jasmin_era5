@@ -106,3 +106,43 @@ Coordinates:
   * longitude  (longitude) float32 90.0 90.25 90.5 90.75 ... 269.5 269.8 270.0
   * latitude   (latitude) float32 60.0 59.75 59.5 59.25 ... -59.5 -59.75 -60.0
 ```
+
+It will also load ensemble datasets. By default, if you pass the "enda" argument it will load the ensemble mean:
+
+`era5[("2t","2d"), "2020-06-01", None, None, None, "enda"]`
+
+```
+<xarray.Dataset>
+Dimensions:    (longitude: 1440, latitude: 721, time: 1)
+Coordinates:
+  * longitude  (longitude) float32 0.0 0.25 0.5 0.75 ... 359.0 359.2 359.5 359.8
+  * latitude   (latitude) float32 90.0 89.75 89.5 89.25 ... -89.5 -89.75 -90.0
+  * time       (time) datetime64[ns] 2020-06-01
+Data variables:
+    d2m        (time, latitude, longitude) float32 dask.array<chunksize=(1, 721, 1440), meta=np.ndarray>
+    t2m        (time, latitude, longitude) float32 dask.array<chunksize=(1, 721, 1440), meta=np.ndarray>
+Attributes:
+    Conventions:  CF-1.6
+    history:      2020-12-22 18:23:11 GMT by grib_to_netcdf-2.19.1: grib_to_n...
+```
+
+However you can also get the ensemble members using `.enda`:
+
+`era5.enda[("2t", "2d"), "2020-06-01":"2020-06-02":"3H", 100:, 90:270, -60:60]`
+
+```
+<xarray.Dataset>
+Dimensions:          (longitude: 721, latitude: 481, time: 8,
+                      ensemble_member: 10)
+Coordinates:
+  * longitude        (longitude) float32 90.0 90.25 90.5 ... 269.5 269.8 270.0
+  * latitude         (latitude) float32 60.0 59.75 59.5 ... -59.5 -59.75 -60.0
+  * time             (time) datetime64[ns] 2020-06-01 ... 2020-06-01T21:00:00
+  * ensemble_member  (ensemble_member) int64 1 2 3 4 5 6 7 8 9 10
+Data variables:
+    t2m              (ensemble_member, time, latitude, longitude) float32 dask.array<chunksize=(1, 1, 481, 721), meta=np.ndarray>
+    d2m              (ensemble_member, time, latitude, longitude) float32 dask.array<chunksize=(1, 1, 481, 721), meta=np.ndarray>
+Attributes:
+    Conventions:  CF-1.6
+    history:      2021-01-15 04:09:35 GMT by grib_to_netcdf-2.19.1: grib_to_n...
+```
