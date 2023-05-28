@@ -22,6 +22,7 @@ Load temperature (t) for one time step:
 `era5["t", "2020-06-01-12:00:00"]`
 
 ```
+OUT:
 <xarray.Dataset>
 Dimensions:    (longitude: 1440, latitude: 721, level: 137, time: 1)
 Coordinates:
@@ -41,6 +42,7 @@ Load temperature (t) for all time steps on 2020/6/1:
 `era5["t", "2020-06-01":"2020-06-02"]`
 
 ```
+OUT: 
 <xarray.Dataset>
 Dimensions:    (longitude: 1440, latitude: 721, level: 137, time: 24)
 Coordinates:
@@ -55,11 +57,32 @@ Attributes:
     history:      2020-12-18 00:18:51 GMT by grib_to_netcdf-2.19.1: grib_to_n...
 ```
 
+Slicing across the prime meridion, and using ascending latitude values is also possible:
+
+`era5["t", "2020-06-01":"2020-06-02", None, -90:90, -60:60]`
+
+```
+OUT:
+<xarray.Dataset>
+Dimensions:    (longitude: 721, latitude: 481, level: 137, time: 24)
+Coordinates:
+  * longitude  (longitude) float32 270.0 270.2 270.5 270.8 ... 89.5 89.75 90.0
+  * latitude   (latitude) float32 60.0 59.75 59.5 59.25 ... -59.5 -59.75 -60.0
+  * level      (level) int32 1 2 3 4 5 6 7 8 ... 130 131 132 133 134 135 136 137
+  * time       (time) datetime64[ns] 2020-06-01 ... 2020-06-01T23:00:00
+Data variables:
+    t          (time, level, latitude, longitude) float32 dask.array<chunksize=(1, 137, 481, 721), meta=np.ndarray>
+Attributes:
+    Conventions:  CF-1.6
+    history:      2020-12-18 00:18:51 GMT by grib_to_netcdf-2.19.1: grib_to_n...
+```
+
 Load temperature (t), specific humidity (q), 2m temperature (2t) and surface height (z) for every three hours on 2020/6/1, for the 100th level downward, and between 90-270 degrees longtiude and -60-60 degrees latitude:
 
 `era5[("t", "q", "2t", "z"), "2020-06-01":"2020-06-02":"3H", 100:, 90:270, -60:60]`
 
 ```
+OUT:
 <xarray.Dataset>
 Dimensions:    (longitude: 721, latitude: 481, level: 38, time: 8)
 Coordinates:
@@ -82,6 +105,7 @@ Calculate pressure levels for the previous example:
 `era5.pl["2020-06-01":"2020-06-02":"3H", 100:, 90:270, -60:60]`
 
 ```
+OUT:
 <xarray.DataArray (time: 8, level: 38, latitude: 481, longitude: 721)>
 array([[[[ 57872.48474194,  57851.04773663,  57737.57761903, ...,
            59308.89351633,  59309.34814012,  59312.7428857 ],
@@ -109,6 +133,7 @@ Calculate geopotential heights for the same example:
 `era5.gz["2020-06-01":"2020-06-02":"3H", 100:, 90:270, -60:60]`
 
 ```
+OUT:
 <xarray.DataArray (time: 8, level: 38, latitude: 481, longitude: 721)>
 array([[[[5.11737957e+04, 5.20996878e+04, 5.44298830e+04, ...,
           4.13218602e+04, 4.12940971e+04, 4.12325377e+04],
@@ -136,6 +161,7 @@ It will also load ensemble datasets. By default, if you pass the "enda" argument
 `era5[("2t","2d"), "2020-06-01", None, None, None, "enda"]`
 
 ```
+OUT:
 <xarray.Dataset>
 Dimensions:    (longitude: 1440, latitude: 721, time: 1)
 Coordinates:
@@ -155,6 +181,7 @@ However you can also get the ensemble members using `.enda`:
 `era5.enda[("2t", "2d"), "2020-06-01":"2020-06-02":"3H", 100:, 90:270, -60:60]`
 
 ```
+OUT:
 <xarray.Dataset>
 Dimensions:          (longitude: 721, latitude: 481, time: 8,
                       ensemble_member: 10)
