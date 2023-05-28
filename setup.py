@@ -9,7 +9,7 @@ modules = sorted([str(f.relative_to(f.parts[0])) for f in src.glob("**/[:alpha:]
 
 setup(
     name="get_jasmin_era5",
-    version="0.1.0",
+    version="0.1.1",
     description="A small python package to find and load ECMWF ERA5 data from the BADC archive on jasmin",
     url="",
     author="William Jones",
