@@ -57,7 +57,7 @@ Attributes:
     history:      2020-12-18 00:18:51 GMT by grib_to_netcdf-2.19.1: grib_to_n...
 ```
 
-Slicing across the prime meridion, and using ascending latitude values is also possible:
+Slicing across the prime meridian and using ascending latitude values is also enabled:
 
 `era5["t", "2020-06-01":"2020-06-02", None, -90:90, -60:60]`
 
